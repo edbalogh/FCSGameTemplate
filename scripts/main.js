@@ -6,12 +6,12 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
 // set the canvas width and height
-canvas.width = 800;
-canvas.height = 600;
+canvas.width = 760;
+canvas.height = 400;
 
 // initialize variables
 let x = 10;
-let y = 10
+let y = canvas.height - 20;
 let lastTime = 0;
 let speed = 0;
 
@@ -26,13 +26,13 @@ function gameLoop(timestamp) {
   const deltaTime = timestamp - lastTime;
 
   // detect collision between square and right side of screen
-  if (x >= 290) {
+  if (x > canvas.width - 11) {
     speed = 0;
-    x = 289;
+    x = canvas.width - 11;
   }
 
   // detect collision between square and left side of screen
-  if (x < 0) {
+  if (x < 1) {
     speed = 0;
     x = 1;
   }
@@ -53,15 +53,15 @@ function gameLoop(timestamp) {
 
 
 // adding event listeners
-addEventListener('keydown', (event) => {
+document.addEventListener('keydown', (event) => {
   // move right/left based on arrow keys
-  if(event.keyCode === 39) speed += 10;
-  if(event.keyCode === 37) speed -= 10;
+  if(event.keyCode === 39) speed = 10;
+  if(event.keyCode === 37) speed = -10;
   // alert(`you pressed keyCode ${event.keyCode}`);
 });
 
-addEventListener('keyup', (event) => {
-  // stop x movement on any key up
+document.addEventListener('keyup', (event) => {
+  // all movement on any key up
   speed = 0;
 })
 
